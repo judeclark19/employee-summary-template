@@ -13,14 +13,15 @@ test("Can set name via constructor arguments", () => {
   expect(e.name).toBe(name);
 });
 
-//ONLY
-test.only("Can set id via constructor argument", () => {
+//passed
+test("Can set id via constructor argument", () => {
   const testValue = 100;
   const e = new Employee("Foo", testValue);
   expect(e.id).toBe(testValue);
 });
 
-test("Can set email via constructor argument", () => {
+//ONLY
+test.only("Can set email via constructor argument", () => {
   const testValue = "test@test.com";
   const e = new Employee("Foo", 1, testValue);
   expect(e.email).toBe(testValue);

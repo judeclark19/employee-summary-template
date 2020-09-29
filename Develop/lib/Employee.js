@@ -23,3 +23,21 @@ class Employee {
 }
 
 module.exports = Employee;
+
+
+
+
+   // inquirer
+    //   .prompt([
+    //     {
+    //       type: "input",
+    //       name: "employeeName",
+    //       message: "Employee's name:",
+    //     },
+    //   ])
+    //   .then((employeeData) => {
+    //     console.log(employeeData);
+    //   })
+    //   .catch((error) => {
+    //     if (error) throw error;
+    //   });

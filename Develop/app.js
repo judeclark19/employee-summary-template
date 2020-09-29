@@ -12,41 +12,48 @@ const managersArray = [];
 const engineersArray = [];
 const internsArray = [];
 const employeesArray = [];
-// const employeesArray = [...managersArray, ...engineersArray, ...internsArray]
-
+const questionsArray = [
+    {
+        type: "input",
+        name: "name",
+        message: "Enter the employee's name:"
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "Choose the employee's role:",
+        choices: ["Manager", "Engineer", "Intern"]
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Enter the employee's ID:",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Enter the employee's email:",
+    },
+    {
+        type: "input",
+        name: "github",
+        message: "Enter this engineer's GitHub username:",
+        when: function(response) {
+            return response.role == "Engineer";
+          },
+    },
+];
 //NOT SURE
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 inquirer
-.prompt([
-    {
-        type: "confirm",
-        name: "addConfirm",
-        message: "Add an employee to the team page?"
-    }
-]).then((userConfirm)=>{
-    console.log(userConfirm);
-}).catch(error => {if (error) throw error;})
-
-
-
-
-//   .prompt([
-//     {
-//       type: "input",
-//       name: "name",
-//       message:
-//         "Add an employee name:",
-//     },
-//   ])
-//   .then((userInput) => {
-//     console.log(userInput)
-//   })
-//   .catch((error) => {
-//     if (error) throw error;
-//   });
-
+  .prompt(questionsArray
+  ).then((response) =>{
+      console.log(response)
+  }).catch((error) =>{
+      if (error) throw error;
+  })
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 

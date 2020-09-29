@@ -59,12 +59,6 @@ const questionsArray = [
       return response.role == "Intern";
     },
   },
-
-  // {
-  //   type: "confirm",
-  //   name: "addAnother",
-  //   message: "Add another employee to the page?",
-  // },
 ];
 
 //Path stuff, unclear
@@ -76,16 +70,83 @@ inquirer
     {
       type: "recursive",
       message: "Add a new employee to the page?",
-      name: "employeesArray",
+      name: "employeesData",
       prompts: questionsArray,
     },
   ])
   .then(function (answers) {
-    // if (answers.recursive) {
-    //   employeesArray.push(answers);
-    //   console.log(employeesArray);
-    // }
-    console.log(answers.employeesArray);
+    //retrieve user input and store it as an array called "employeesData"
+    employeesData = answers.employeesData;
+    // console.log("Response data received:");
+    // console.log(employeesData);
+
+    //Filter out Managers and convert to objects
+    const managersData = employeesData.filter(({ role }) => {
+      return role == "Manager";
+    });
+
+    const managersArray = [];
+
+    managersData.forEach((manager) => {
+      const member = new Manager(
+        manager.name,
+        manager.id,
+        manager.email,
+        manager.officeNumber
+      );
+      managersArray.push(member);
+    });
+
+    //Filter out Engineers and convert to objects
+    const engineersData = employeesData.filter(({ role }) => {
+      return role == "Engineer";
+    });
+
+    const engineersArray = [];
+
+    engineersData.forEach((engineer) => {
+      const member = new Engineer(
+        engineer.name,
+        engineer.id,
+        engineer.email,
+        engineer.github
+      );
+      engineersArray.push(member);
+    });
+
+    //Filter out Engineers and convert to objects
+    const internsData = employeesData.filter(({ role }) => {
+      return role == "Intern";
+    });
+
+    const internsArray = [];
+
+    internsData.forEach((intern) => {
+      const member = new Intern(
+        intern.name,
+        intern.id,
+        intern.email,
+        intern.school
+      );
+      internsArray.push(member);
+    });
+
+    //spread them all together!
+    const employeesArray = [
+      ...managersArray,
+      ...engineersArray,
+      ...internsArray,
+    ];
+
+    console.log("New array of objects run thru classes:");
+    console.log(employeesArray);
+
+    //render them?
+    const renderTeam = render(employeesArray);
+    fs.writeFile(outputPath, renderTeam, function (err) {
+      if (err) throw err;
+      console.log("Render success");
+    });
   })
   .catch((error) => {
     if (error) throw error;

@@ -76,7 +76,7 @@ inquirer
     {
       type: "recursive",
       message: "Add a new employee to the page?",
-      name: "employeesArray",
+      name: "employeesData",
       prompts: questionsArray,
     },
   ])
@@ -85,7 +85,15 @@ inquirer
     //   employeesArray.push(answers);
     //   console.log(employeesArray);
     // }
-    console.log(answers.employeesArray);
+    employeesData = answers.employeesData;
+    console.log(employeesData);
+    // render(employeesArray);
+
+    // const renderTeam = render(employeesArray);
+    // fs.writeFile(outputPath, renderTeam, function (err) {
+    //   if (err) throw err;
+    //   console.log("successfully written");
+    // });
   })
   .catch((error) => {
     if (error) throw error;

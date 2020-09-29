@@ -19,31 +19,33 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 inquirer
-  .prompt([
+.prompt([
     {
-      type: "list",
-      name: "Role",
-      message:
-        "Choose a role for your first employee that will be added to the page:",
-      choices: ["Manager", "Engineer", "Intern"],
-    },
-  ])
-  .then((roleInput) => {
-
-    // console.log(roleInput)
-
-    if (roleInput.Role == "Manager") {
-      console.log("user selected manager");
-    } else if (roleInput.Role =="Engineer"){
-        console.log("user selected engineer")
+        type: "confirm",
+        name: "addConfirm",
+        message: "Add an employee to the team page?"
     }
-    else if (roleInput.Role =="Intern"){
-      console.log("user selected Intern");
-    }
-  })
-  .catch((error) => {
-    if (error) throw error;
-  });
+]).then((userConfirm)=>{
+    console.log(userConfirm);
+}).catch(error => {if (error) throw error;})
+
+
+
+
+//   .prompt([
+//     {
+//       type: "input",
+//       name: "name",
+//       message:
+//         "Add an employee name:",
+//     },
+//   ])
+//   .then((userInput) => {
+//     console.log(userInput)
+//   })
+//   .catch((error) => {
+//     if (error) throw error;
+//   });
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

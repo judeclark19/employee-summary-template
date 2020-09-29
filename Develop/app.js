@@ -1,26 +1,48 @@
+// IMPORTS
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const render = require("./lib/htmlRenderer");
 
+// VARIABLES
+const managersArray = [];
+const engineersArray = [];
+const internsArray = [];
+const employeesArray = [];
+// const employeesArray = [...managersArray, ...engineersArray, ...internsArray]
+
+//NOT SURE
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./lib/htmlRenderer");
-
 inquirer
   .prompt([
-    {type:"input",
-     name: "employeeName",
-     message: "What is the first employee's name?"}
+    {
+      type: "list",
+      name: "Role",
+      message:
+        "Choose a role for your first employee that will be added to the page:",
+      choices: ["Manager", "Engineer", "Intern"],
+    },
   ])
-  .then((userInput) => {
-    console.log(userInput)
+  .then((roleInput) => {
+
+    // console.log(roleInput)
+
+    if (roleInput.Role == "Manager") {
+      console.log("user selected manager");
+    } else if (roleInput.Role =="Engineer"){
+        console.log("user selected engineer")
+    }
+    else if (roleInput.Role =="Intern"){
+      console.log("user selected Intern");
+    }
   })
   .catch((error) => {
-    if (error) throw error
+    if (error) throw error;
   });
 
 // Write code to use inquirer to gather information about the development team members,

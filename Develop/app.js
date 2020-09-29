@@ -3,15 +3,16 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
+inquirer.registerPrompt("recursive", require("inquirer-recursive"));
 const path = require("path");
 const fs = require("fs");
 const render = require("./lib/htmlRenderer");
 
-// VARIABLES
+// ARRAYS
 const managersArray = [];
 const engineersArray = [];
 const internsArray = [];
-const employeesArray = [];
+// const employeesArray = [];
 const questionsArray = [
   {
     type: "input",
@@ -58,23 +59,33 @@ const questionsArray = [
       return response.role == "Intern";
     },
   },
+
+  // {
+  //   type: "confirm",
+  //   name: "addAnother",
+  //   message: "Add another employee to the page?",
+  // },
 ];
-//NOT SURE
+
+//Path stuff, unclear
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 inquirer
-  .prompt(questionsArray)
-  .then((response) => {
-    console.log(response);
-
-    //response currently looks like this:
-    // { name: 'Ralphe Finnes',
-    //     role: 'Intern',
-    //     id: '8445',
-    //     email: 'Finnesse@gmail.com',
-    //     school: 'USC'
-    //   }
+  .prompt([
+    {
+      type: "recursive",
+      message: "Add a new employee to the page?",
+      name: "employeesArray",
+      prompts: questionsArray,
+    },
+  ])
+  .then(function (answers) {
+    // if (answers.recursive) {
+    //   employeesArray.push(answers);
+    //   console.log(employeesArray);
+    // }
+    console.log(answers.employeesArray);
   })
   .catch((error) => {
     if (error) throw error;

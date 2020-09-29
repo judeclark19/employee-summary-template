@@ -13,64 +13,72 @@ const engineersArray = [];
 const internsArray = [];
 const employeesArray = [];
 const questionsArray = [
-    {
-        type: "input",
-        name: "name",
-        message: "Enter the employee's name:"
+  {
+    type: "input",
+    name: "name",
+    message: "Enter the employee's name:",
+  },
+  {
+    type: "list",
+    name: "role",
+    message: "Choose the employee's role:",
+    choices: ["Manager", "Engineer", "Intern"],
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "Enter the employee's ID:",
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "Enter the employee's email:",
+  },
+  {
+    type: "input",
+    name: "officeNumber",
+    message: "Enter this manager's office number:",
+    when: function (response) {
+      return response.role == "Manager";
     },
-    {
-        type: "list",
-        name: "role",
-        message: "Choose the employee's role:",
-        choices: ["Manager", "Engineer", "Intern"]
+  },
+  {
+    type: "input",
+    name: "github",
+    message: "Enter this engineer's GitHub username:",
+    when: function (response) {
+      return response.role == "Engineer";
     },
-    {
-        type: "input",
-        name: "id",
-        message: "Enter the employee's ID:",
+  },
+  {
+    type: "input",
+    name: "school",
+    message: "Enter this intern's school name:",
+    when: function (response) {
+      return response.role == "Intern";
     },
-    {
-        type: "input",
-        name: "email",
-        message: "Enter the employee's email:",
-    },
-    {
-        type: "input",
-        name: "officeNumber",
-        message: "Enter this manager's office number:",
-        when: function(response) {
-            return response.role == "Manager";
-          },
-    },
-    {
-        type: "input",
-        name: "github",
-        message: "Enter this engineer's GitHub username:",
-        when: function(response) {
-            return response.role == "Engineer";
-          },
-        },
-    {
-        type: "input",
-        name: "school",
-        message: "Enter this intern's school name:",
-        when: function(response) {
-            return response.role == "Intern";
-          },
-    
-    },
+  },
 ];
 //NOT SURE
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 inquirer
-  .prompt(questionsArray
-  ).then((response) =>{
-      console.log(response)
-  }).catch((error) =>{
-      if (error) throw error;
+  .prompt(questionsArray)
+  .then((response) => {
+    console.log(response);
+
+    //response currently looks like this:
+    // { name: 'Ralphe Finnes',
+    //     role: 'Intern',
+    //     id: '8445',
+    //     email: 'Finnesse@gmail.com',
+    //     school: 'USC'
+    //   }
   })
+  .catch((error) => {
+    if (error) throw error;
+  });
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 

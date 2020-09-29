@@ -36,6 +36,14 @@ const questionsArray = [
     },
     {
         type: "input",
+        name: "officeNumber",
+        message: "Enter this manager's office number:",
+        when: function(response) {
+            return response.role == "Manager";
+          },
+    },
+    {
+        type: "input",
         name: "github",
         message: "Enter this engineer's GitHub username:",
         when: function(response) {

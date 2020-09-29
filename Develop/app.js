@@ -49,6 +49,15 @@ const questionsArray = [
         when: function(response) {
             return response.role == "Engineer";
           },
+        },
+    {
+        type: "input",
+        name: "school",
+        message: "Enter this intern's school name:",
+        when: function(response) {
+            return response.role == "Intern";
+          },
+    
     },
 ];
 //NOT SURE

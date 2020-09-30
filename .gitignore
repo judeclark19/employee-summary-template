@@ -1,6 +1,7 @@
 .vscode/
 test/
 package-lock.json
+team.html
 
 # Logs
 logs

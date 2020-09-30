@@ -3,21 +3,12 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
-// inquirer.registerPrompt("recursive", require("inquirer-recursive"));
 const path = require("path");
 const fs = require("fs");
 const render = require("./lib/htmlRenderer");
 const { run } = require("jest");
 
 //VALIDATION FUNCTIONS
-
-// function validateConfirm(input) {
-//   if (input === "y" || input === "n") {
-//     return true;
-//   }
-//   return "Please enter 'y' or 'n'.";
-// }
-
 function validateInput(input) {
   if (input) {
     return true;
@@ -34,9 +25,6 @@ function validateEmail(email) {
 }
 
 // ARRAYS
-const managersArray = [];
-const engineersArray = [];
-const internsArray = [];
 const employeesData = [];
 const questionsArray = [
   {
@@ -44,9 +32,6 @@ const questionsArray = [
     name: "name",
     message: "Enter the employee's name:",
     validate: validateInput,
-    // validate: function validateName(name) {
-    //   return name !== "";
-    // },
   },
   {
     type: "list",
@@ -101,26 +86,20 @@ const questionsArray = [
   },
 ];
 
-//Path stuff, unclear
+//PATH
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+//INQUIRER
 function runInquirer() {
   inquirer
     .prompt(questionsArray)
     .then(function (answers) {
       employeesData.push(answers);
 
-      // console.log("employeesData:");
-      // console.log("================================");
-      // console.log(employeesData);
-
       if (answers.addAnother == "Yes, add another.") {
         runInquirer();
       } else {
-        console.log("STOP INQUIRY. RESULT:");
-        console.log(employeesData);
-
         //Filter out Managers and convert to objects
         const managersData = employeesData.filter(({ role }) => {
           return role == "Manager";
@@ -179,14 +158,13 @@ function runInquirer() {
           ...internsArray,
         ];
 
-        console.log("New array of objects run thru classes:");
-        console.log(employeesArray);
-
         // render them?
         const renderTeam = render(employeesArray);
         fs.writeFile(outputPath, renderTeam, function (err) {
           if (err) throw err;
-          console.log("Render success");
+          console.log(
+            "Render success. See new 'team' file in the 'output folder."
+          );
         });
       }
     })

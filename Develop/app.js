@@ -3,7 +3,7 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
-inquirer.registerPrompt("recursive", require("inquirer-recursive"));
+// inquirer.registerPrompt("recursive", require("inquirer-recursive"));
 const path = require("path");
 const fs = require("fs");
 const render = require("./lib/htmlRenderer");
@@ -11,18 +11,26 @@ const { run } = require("jest");
 
 //VALIDATION FUNCTIONS
 
-function validateConfirm(input) {
-  if (input == "y" || input == "n") {
-    return true;
-  }
-  return "Please enter 'y' or 'n'.";
-}
+// function validateConfirm(input) {
+//   if (input === "y" || input === "n") {
+//     return true;
+//   }
+//   return "Please enter 'y' or 'n'.";
+// }
 
 function validateInput(input) {
   if (input) {
     return true;
   }
   return "Please enter a value.";
+}
+
+function validateEmail(email) {
+  // console.log(/\S+@\S+\.\S+/.test(email));
+  if (/\S+@\S+\.\S+/.test(email)) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+  return "Please enter a valid email address.";
 }
 
 // ARRAYS
@@ -56,7 +64,7 @@ const questionsArray = [
     type: "input",
     name: "email",
     message: "Enter the employee's email:",
-    validate: validateInput,
+    validate: validateEmail,
   },
   {
     type: "input",
@@ -86,10 +94,10 @@ const questionsArray = [
     },
   },
   {
-    type: "confirm",
+    type: "list",
     name: "addAnother",
     message: "Add another employee?",
-    // validate: validateInput,
+    choices: ["Yes, add another.", "No, render my new page."],
   },
 ];
 
@@ -99,27 +107,15 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 function runInquirer() {
   inquirer
-    .prompt(
-      questionsArray
-
-      //   [
-      //   {
-      //     type: "recursive",
-      //     message: "Add a new employee to the page?",
-      //     name: "employeesData",
-      //     validate: validateConfirm,
-      //     prompts: questionsArray,
-      //   },
-      // ]
-    )
+    .prompt(questionsArray)
     .then(function (answers) {
       employeesData.push(answers);
 
-      console.log("employeesData:");
-      console.log("================================");
-      console.log(employeesData);
+      // console.log("employeesData:");
+      // console.log("================================");
+      // console.log(employeesData);
 
-      if (answers.addAnother) {
+      if (answers.addAnother == "Yes, add another.") {
         runInquirer();
       } else {
         console.log("STOP INQUIRY. RESULT:");

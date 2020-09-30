@@ -1,7 +1,7 @@
 # Employee Summary Generator (Template)
 
 ## Description
-This node.js app will generate a stylish HTML page on which to display basic contact information about your coworkers/employees. Simply fill in employee data via the command line and the app will take that and inject it into an HTML page that you can then use.
+This node.js app will generate a stylish HTML page on which to display basic contact information about your coworkers/employees. Simply fill in employee data via the command line and the app will take that and inject it into an HTML page that you can then use as you wish.
 
 ### Example of a generated page
 ![App-generated page](./assets/output_screenshot.png)

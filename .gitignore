@@ -2,6 +2,7 @@
 test/
 package-lock.json
 team.html
+.DS_Store
 
 # Logs
 logs

@@ -25,6 +25,14 @@ function validateInput(input) {
   return "Please enter a value.";
 }
 
+function validateEmail(email) {
+  // console.log(/\S+@\S+\.\S+/.test(email));
+  if (/\S+@\S+\.\S+/.test(email)) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+  return "Please enter a valid email address.";
+}
+
 // ARRAYS
 const managersArray = [];
 const engineersArray = [];
@@ -56,7 +64,7 @@ const questionsArray = [
     type: "input",
     name: "email",
     message: "Enter the employee's email:",
-    validate: validateInput,
+    validate: validateEmail,
   },
   {
     type: "input",

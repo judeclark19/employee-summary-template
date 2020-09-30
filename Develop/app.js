@@ -8,6 +8,14 @@ const path = require("path");
 const fs = require("fs");
 const render = require("./lib/htmlRenderer");
 
+//VALIDATION FUNCTIONS
+function validateInput(input) {
+  if (input) {
+    return true;
+  }
+  return "Please enter a value.";
+}
+
 // ARRAYS
 const managersArray = [];
 const engineersArray = [];
@@ -18,6 +26,10 @@ const questionsArray = [
     type: "input",
     name: "name",
     message: "Enter the employee's name:",
+    validate: validateInput,
+    // validate: function validateName(name) {
+    //   return name !== "";
+    // },
   },
   {
     type: "list",
@@ -29,16 +41,19 @@ const questionsArray = [
     type: "input",
     name: "id",
     message: "Enter the employee's ID:",
+    validate: validateInput,
   },
   {
     type: "input",
     name: "email",
     message: "Enter the employee's email:",
+    validate: validateInput,
   },
   {
     type: "input",
     name: "officeNumber",
     message: "Enter this manager's office number:",
+    validate: validateInput,
     when: function (response) {
       return response.role == "Manager";
     },
@@ -47,6 +62,7 @@ const questionsArray = [
     type: "input",
     name: "github",
     message: "Enter this engineer's GitHub username:",
+    validate: validateInput,
     when: function (response) {
       return response.role == "Engineer";
     },
@@ -55,6 +71,7 @@ const questionsArray = [
     type: "input",
     name: "school",
     message: "Enter this intern's school name:",
+    validate: validateInput,
     when: function (response) {
       return response.role == "Intern";
     },
